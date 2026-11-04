@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>in game</title>
+    <link rel="stylesheet" href="ui_manager.css">
+  </head>
+  <body>
+    <h1 id="judul">tiktaktoek game</h1>
+    <h2 id="turn">turn: </h2>
+    <table id="tabel" border="1">
+      <tr>
+        <th><button class="bt" id="k00" onclick="pick(0,0)"> </button></th>
+        <th><button class="bt" id="k01" onclick="pick(0,1)"> </button></th>
+        <th><button class="bt" id="k02" onclick="pick(0,2)"> </button></th>
+      </tr>
+      <tr>
+        <th><button class="bt" id="k10" onclick="pick(1,0)"> </button></th>
+        <th><button class="bt" id="k11" onclick="pick(1,1)"> </button></th>
+        <th><button class="bt" id="k12" onclick="pick(1,2)"> </button></th>
+      </tr>
+      <tr>
+        <th><button class="bt" id="k20" onclick="pick(2,0)"> </button></th>
+        <th><button class="bt" id="k21" onclick="pick(2,1)"> </button></th>
+        <th><button class="bt" id="k22" onclick="pick(2,2)"> </button></th>
+      </tr>
+    </table>
+    <button onclick="riset()"> riset game</button>
+    <button onclick="ganti_page(`balik`)">balik ke menu</button>
+    <script src="script.js"></script>
+  </body>
+</html>
