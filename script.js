@@ -1,6 +1,7 @@
 const turn_label = document.getElementById("turn");
 const dif_menu = document.getElementById("menu_dif");
-const dif_bt = document.getElementById("bt_dif")
+const dif_bt = document.getElementById("bt_dif");
+const dif_label = document.getElementById("dif");
 
 const params = new URLSearchParams(location.search);
 
@@ -27,13 +28,33 @@ update_ui()
 
 function update() 
 {
+  if (dif == "none")
+  {
+    dif_label.innerText = "dif: none"
+  }
+  else if (dif == "ran")
+  {
+    dif_label.innerText = "dif: EZ(ramdom)";
+  }
+  else if (dif == "med")
+  {
+    dif_label.innerText = "dif: Hard(Rule Based AI)";
+  }
+  else
+  {
+    dif_label.innerText = "dif: Imposible(Minimax AI)"
+  }
   if (single)
   {
     med_move()
     ran_move()
+    impo_move()
   }
 }
 setInterval(update, 16)
+
+
+
 function ran_move()
 {
   if (dif != "ran" || turn != "X")
@@ -131,6 +152,105 @@ function med_move()
   }
 }
 
+function impo_move()
+{
+  if (dif != "impo" || turn != "X") return;
+
+  let terbaik = -Infinity;
+  let langkah = null;
+
+  for (let y = 0; y < 3; y++)
+  {
+    for (let x = 0; x < 3; x++)
+    {
+      if (board[y][x] != " ") continue;
+
+      board[y][x] = "X";
+
+      let skor = minimax(board, false);
+
+      board[y][x] = " ";
+
+      if (skor > terbaik)
+      {
+        terbaik = skor;
+        langkah = [y, x];
+      }
+    }
+  }
+
+  if (langkah != null)
+  {
+    pick(langkah[0], langkah[1]);
+  }
+}
+
+function minimax(b, isMax)
+{
+  let hasil = evaluasi(b);
+
+  if (hasil !== null) return hasil;
+
+  if (isMax)
+  {
+    let terbaik = -Infinity;
+
+    for (let y = 0; y < 3; y++)
+    {
+      for (let x = 0; x < 3; x++)
+      {
+        if (b[y][x] != " ") continue;
+
+        b[y][x] = "X";
+
+        let skor = minimax(b, false);
+
+        b[y][x] = " ";
+
+        terbaik = Math.max(terbaik, skor);
+      }
+    }
+
+    return terbaik;
+  }
+  else
+  {
+    let terbaik = Infinity;
+
+    for (let y = 0; y < 3; y++)
+    {
+      for (let x = 0; x < 3; x++)
+      {
+        if (b[y][x] != " ") continue;
+
+        b[y][x] = "O";
+
+        let skor = minimax(b, true);
+
+        b[y][x] = " ";
+
+        terbaik = Math.min(terbaik, skor);
+      }
+    }
+
+    return terbaik;
+  }
+}
+
+function evaluasi(b)
+{
+  if (cek_win(b, "X")) return 10;
+  if (cek_win(b, "O")) return -10;
+
+  let penuh = b.every(row =>
+    row.every(cell => cell != " ")
+  );
+
+  if (penuh) return 0;
+
+  return null;
+}
+
 function ganti_page(data)
 {
   if (data == "game_2")
@@ -144,6 +264,10 @@ function ganti_page(data)
   else if (data == "med")
   {
     location.href = "game.html?single=true&dif=med";
+  }
+  else if (data == "impo")
+  {
+    location.href = "game.html?single=true&dif=impo";
   }
   else if (data == "balik")
   {
