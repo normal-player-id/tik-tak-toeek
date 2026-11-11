@@ -8,6 +8,8 @@ const params = new URLSearchParams(location.search);
 let single = params.get("single") == "true";
 let dif = params.get("dif") || "none";
 
+let gamble_mode = false;
+
 let board = 
 [
   [" "," "," "],
@@ -15,14 +17,17 @@ let board =
   [" "," "," "]
 ];
 
-let turn = "O";
 let p =
 [
   "X",
   "O"
 ];
+let turn = random_p();
 
-random_p();
+
+
+
+
 let ini_winAseri_bung = false;
 update_ui()
 
@@ -32,15 +37,15 @@ function update()
   {
     dif_label.innerText = "dif: none"
   }
-  else if (dif == "ran")
+  else if (dif == "ran" && !gamble_mode)
   {
     dif_label.innerText = "dif: EZ(ramdom)";
   }
-  else if (dif == "med")
+  else if (dif == "med" && !gamble_mode)
   {
     dif_label.innerText = "dif: Hard(Rule Based AI)";
   }
-  else
+  else if (dif == "impo" && !gamble_mode)
   {
     dif_label.innerText = "dif: Imposible(Minimax AI)"
   }
@@ -53,13 +58,29 @@ function update()
 }
 setInterval(update, 16)
 
+function gamble()
+{
+  gamble_mode = true;
+  console.log("gamble on")
+  if (dif == "ran")
+  {
+    dif_label.innerText ="dif: random random (random)";
+  }
+  else if (dif == "med")
+  {
+    dif_label.innerText = "dif: chaos (rule base ai)";
+  }
+  else if (dif == "impo")
+  {
+    dif_label.innerText = "dif: posible (minimax ai)"
+  }
+}
 
 
 function ran_move()
 {
   if (dif != "ran" || turn != "X")
   {
-    console.log("p")
     return
   }
   console.log( single,dif);
@@ -281,11 +302,9 @@ function open_dif()
 }
 function random_p()
 {
-  
-  turn = p[Math.floor(
+  return p[Math.floor(
     Math.random() * p.length
   )]
-  
 }
 
 function pick(ky,kx)
@@ -300,14 +319,30 @@ function pick(ky,kx)
   if (turn == "O" && board[ky][kx] == " ")
   {
     board[ky][kx] = "O"
-    object.style.background = "var(--O)"
-    turn = "X"
+    object.style.background = "var(--O)";
+    if (gamble_mode == true)
+    {
+      turn = random_p();
+      console.log("gambleee");
+    }
+    else
+    {
+    turn = "X";
+    }
   }
   else if (turn == "X" && board[ky][kx] == " ")
   {
     board[ky][kx] = "X"
-    object.style.background = "var(--X)"
-    turn = "O"
+    object.style.background = "var(--X)";
+    if (gamble_mode == true)
+    {
+      turn = random_p();
+      console.log("gambleee");
+    }
+    else
+    {
+    turn = "O";  
+    }
   }
   update_ui()
   win_ceker()

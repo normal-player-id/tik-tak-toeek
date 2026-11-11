@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1 id="judul">tictaktoek</h1>
-    <table border="1">
+    <table id="menu" border="1">
       <tr>
         <th><button id="bt_dif" onclick="open_dif()" class="btm">single player</button></th>
         <th><button onclick="ganti_page(`game_2`)" class="btm">2 player</button></th>
@@ -16,8 +16,10 @@
           <th><button onclick="ganti_page(`ran`)" class="btm">ez(random)</button></th>
           <th><button onclick="ganti_page(`med`)" class="btm">hard(Rule Based AI)</button></th>
           <th><button class="btm" onclick="ganti_page(`impo`)">IMPOSIBLE(MiniMax AI)</button></th>
-      </tr>
     </table>
+    <video autoplay muted loop id="bg">
+        <source src="keqing.mp4" type="video/mp4">
+    </video>
     <script src="script.js"></script>
   </body>
 </html>

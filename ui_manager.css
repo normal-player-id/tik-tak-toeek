@@ -5,6 +5,64 @@
   --none: linear-gradient(to left, rgb(176,176,176), rgb(83,83,83));
   --win: linear-gradient(to left, rgb(255,39,39),rgb(69,39,255))
 }
+*
+{
+  box-sizing: border-box;
+}
+
+html, body
+{
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+body
+{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+table
+{
+  max-width: 100%;
+}
+
+#menu_dif th
+{
+  display: block;
+  width: 100%;
+}
+
+#menu_dif .btm
+{
+  width: min(90vw, 300px);
+}
+
+#menu
+{
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+#menu th
+{
+  padding: 2px;
+  overflow-wrap: anywhere;
+}
+
+#menu .btm
+{
+  width: 100%;
+  min-width: 0;
+  font-size: 12px;
+}
+
 #judul
 {
   background: linear-gradient(to left,rgb(255,0,0),rgb(0,0,255));
@@ -12,25 +70,68 @@
 }
 #tabel
 {
-  width: 300px;
-  height: 300px;
-  top: 0;
-  left: 0;
+  width: min(75vw, 65vh, 500px);
+  aspect-ratio: 1;
+  table-layout: fixed;
+  margin: 20px auto;
+  border-collapse: collapse;
 }
+
+#tabel td,
+#tabel th
+{
+  width: 33.333%;
+  height: 33.333%;
+  padding: 2px;
+}
+
 .bt
 {
-  width: 100px;
-  height: 100px;
-  font-size: 100px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  font-size: clamp(30px, 12vw, 100px);
 }
 .btm
 {
-  width: 150px;
-  height: 50px;
-  font-size: 15px;
+  width: min(90vw, 200px);
+  min-height: 50px;
+  font-size: clamp(12px, 3vw, 15px);
   background: var(--win);
   color: white;
 }
+@media (max-width: 600px)
+{
+  body
+  {
+    text-align: center;
+  }
+
+  
+
+  #menu_dif th
+  {
+    display: block;
+    width: 100%;
+  }
+
+  #menu_dif .btm
+  {
+    width: min(90vw, 300px);
+    font-size: 14px;
+  }
+
+  table
+  {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+
+
 #k00
 {
   background: var(--none);
@@ -70,4 +171,14 @@
 #menu_dif
 {
   display: none;
+}
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    display: block;
 }
